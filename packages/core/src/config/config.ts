@@ -222,6 +222,7 @@ export interface ConfigParameters {
   tavilyApiKey?: string;
   chatCompression?: ChatCompressionSettings;
   interactive?: boolean;
+  readAfterEdit?: boolean;
 }
 
 export class Config {
@@ -301,6 +302,7 @@ export class Config {
   private readonly tavilyApiKey?: string;
   private readonly chatCompression: ChatCompressionSettings | undefined;
   private readonly interactive: boolean;
+  private readonly readAfterEdit: boolean;
   private initialized: boolean = false;
 
   constructor(params: ConfigParameters) {
@@ -376,6 +378,7 @@ export class Config {
       params.loadMemoryFromIncludeDirectories ?? false;
     this.chatCompression = params.chatCompression;
     this.interactive = params.interactive ?? false;
+    this.readAfterEdit = params.readAfterEdit ?? true;
 
     // Web search
     this.tavilyApiKey = params.tavilyApiKey;
@@ -792,6 +795,10 @@ export class Config {
 
   isInteractive(): boolean {
     return this.interactive;
+  }
+
+  getReadAfterEdit(): boolean {
+    return this.readAfterEdit;
   }
 
   async getGitService(): Promise<GitService> {
